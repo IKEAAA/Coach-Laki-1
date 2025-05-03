@@ -1,0 +1,55 @@
+from enum import Enum
+import random
+import string
+
+class ActivityType(Enum):
+    LECTURE = "lecture"
+    EXERCISE = "exercise"
+    LABORATORY = "assignment"
+    PROJECT = "project"
+    TEST = "test"
+
+class Activity:
+    def __init__(self, name, type:ActivityType, description, number_of_hours:int):
+        if not (0 <= number_of_hours <= 5):
+            raise ValueError("Number of hours needs to be between 0 and 5")
+        self.name = name
+        self.type = type
+        self.description = description
+        self.number_of_hours = number_of_hours
+    
+    def __str__(self):
+        return f"Activity: {self.name}, Type: {self.type}, Description: {self.description}, Hours: {self.number_of_hours}"
+
+# Helper class
+class Helper:
+    @staticmethod
+    def random_word():
+        word = ''.join(random.choices(string.ascii_lowercase, k=11))
+        return word.capitalize()
+    
+    @staticmethod    
+    def random_percentage():
+        return random.randint(0, 100)
+    
+    @staticmethod
+    def random_type():
+        return random.choice(list(ActivityType))
+        
+if __name__ == "__main__":
+    activity1 = Activity(
+        Helper.random_word(),
+        Helper.random_type(),
+        Helper.random_percentage(),
+        random.randint(0, 5)
+    )
+    
+    activity2 = Activity(
+        Helper.random_word(),
+        Helper.random_type(),
+        Helper.random_percentage(),
+        random.randint(0, 5)
+    )
+
+    print(activity1)
+    print(activity2)
